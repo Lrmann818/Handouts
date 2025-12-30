@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>12 Pillars Puzzle</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            /* side by side */
+            justify-content: center;
+            /* centers the whole block horizontally */
+            align-items: flex-start;
+            /* top-aligns table and legend */
+            gap: 30px;
+            /* space between table and legend */
+            flex-wrap: nowrap;
+            /* prevents legend from dropping below */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: auto;
+            /* allows table to shrink if needed */
+            max-width: 500px;
+            /* prevents table from taking up too much space */
+        }
+
+        td {
+            width: 50px;
+            /* adjust smaller if needed */
+            height: 50px;
+            border: 1px solid #555;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .legend {
+            border: 1px solid #555;
+            padding: 10px 15px;
+            width: 160px;
+            /* explicit width so it doesn’t wrap */
+            flex-shrink: 0;
+            /* prevents legend from shrinking */
+        }
+
+
+        .green {
+            background-color: #c6efce;
+        }
+
+        .red {
+            background-color: #ffc7ce;
+        }
+
+        .gray {
+            background-color: #d9d9d9;
+        }
+
+        .legend h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #555;
+            margin-right: 8px;
+        }
+
+        .instructions {
+            max-width: 600px;
+            margin: 25px auto 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>12 Pillars Puzzle</h1>
+
+    <div class="container">
+
+        <!-- Puzzle Table-->
+        <table>
+            <tr>
+                <td>C</td>
+                <td>T</td>
+                <td>V</td>
+                <td>X</td>
+                <td>W</td>
+                <td>B</td>
+                <td>C</td>
+                <td>X</td>
+                <td>K</td>
+                <td>E</td>
+            </tr>
+            <tr>
+                <td>Q</td>
+                <td>U</td>
+                <td>B</td>
+                <td>C</td>
+                <td>T</td>
+                <td>J</td>
+                <td>J</td>
+                <td>L</td>
+                <td>H</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>E</td>
+                <td>Z</td>
+                <td>U</td>
+                <td>I</td>
+                <td>A</td>
+                <td>Q</td>
+                <td>R</td>
+                <td>M</td>
+                <td>P</td>
+                <td>E</td>
+            </tr>
+            <tr>
+                <td>W</td>
+                <td>V</td>
+                <td>Y</td>
+                <td>Z</td>
+                <td>Y</td>
+                <td>S</td>
+                <td>Y</td>
+                <td>K</td>
+                <td>A</td>
+                <td>Q</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td>H</td>
+                <td>Z</td>
+                <td>Q</td>
+                <td>O</td>
+                <td>L</td>
+                <td>P</td>
+                <td>M</td>
+                <td>G</td>
+                <td>H</td>
+            </tr>
+            <tr>
+                <td>G</td>
+                <td>I</td>
+                <td>C</td>
+                <td>N</td>
+                <td>W</td>
+                <td>T</td>
+                <td>F</td>
+                <td>P</td>
+                <td>R</td>
+                <td>I</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>K</td>
+                <td>D</td>
+                <td>U</td>
+                <td>V</td>
+                <td>Z</td>
+                <td>X</td>
+                <td>J</td>
+                <td>B</td>
+                <td>G</td>
+            </tr>
+        </table>
+
+        <!-- Legend -->
+        <div class="legend">
+            <h3>Legend</h3>
+
+            <div class="legend-item">
+                <div class="color-box green"></div>
+                <span>Correct</span>
+            </div>
+
+            <div class="legend-item">
+                <div class="color-box red"></div>
+                <span>Incorrect</span>
+            </div>
+
+            <div class="legend-item">
+                <div class="color-box gray"></div>
+                <span>Unknown</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Instructions-->
+    <div class="instructions">
+        <h3>Instructions</h3>
+        <span>Click a cell to cycle through colors. All players should see changes live.</span>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Include your Firebase config here
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKhIzcqkWAY8Zqx0Fc5wqnId9bco93zdU",
+            authDomain: "pillars-puzzle.firebaseapp.com",
+            databaseURL: "https://pillars-puzzle-default-rtdb.firebaseio.com",
+            projectId: "pillars-puzzle",
+            storageBucket: "pillars-puzzle.firebasestorage.app",
+            messagingSenderId: "677249236672",
+            appId: "1:677249236672:web:dc5bb48350c6efc0fa3725",
+            measurementId: "G-XVC8R1S7FH"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const cellsRef = database.ref('cells'); // path to store cell states
+
+        // Define colors
+        const colors = ["", "green", "red", "gray"];
+
+        // Assign unique IDs to each cell if you haven’t yet
+        document.querySelectorAll("td").forEach((cell, i) => {
+            cell.id = "cell" + i; // cell0, cell1, etc.
+
+            // Listen for clicks
+            cell.addEventListener("click", () => {
+                const currentColor = cell.dataset.color || "";
+                const index = (colors.indexOf(currentColor) + 1) % colors.length;
+                const nextColor = colors[index];
+
+                // Save color to Firebase
+                cellsRef.child(cell.id).set(nextColor);
+            });
+        });
+
+        // Listen for Firebase changes and update all clients
+        cellsRef.on('value', snapshot => {
+            const data = snapshot.val() || {};
+            for (const id in data) {
+                const cell = document.getElementById(id);
+                cell.classList.remove(...colors.filter(c => c));
+                if (data[id]) cell.classList.add(data[id]);
+                cell.dataset.color = data[id] || "";
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>
