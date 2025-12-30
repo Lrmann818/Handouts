@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Sheet</title>
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #555;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .gray { background-color: #d9d9d9; }
+  .green { background-color: #c6efce; }
+  .red { background-color: #ffc7ce; }
+</style>
+</head>
+
+<body>
+
+<h2>Click cells to toggle color</h2>
+
+<table>
+  <tr>
+    <td>C</td>
+    <td>T</td>
+    <td>V</td>
+    <td>X</td>
+    <td>W</td>
+    <td>B</td>
+    <td>C</td>
+    <td>X</td>
+    <td>K</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>Q</td>
+    <td>U</td>
+    <td>B</td>
+    <td>C</td>
+    <td>T</td>
+    <td>J</td>
+    <td>J</td>
+    <td>L</td>
+    <td>H</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>E</td>
+    <td>Z</td>
+    <td>U</td>
+    <td>I</td>
+    <td>A</td>
+    <td>Q</td>
+    <td>R</td>
+    <td>M</td>
+    <td>P</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>W</td>
+    <td>V</td>
+    <td>Y</td>
+    <td>Z</td>
+    <td>Y</td>
+    <td>S</td>
+    <td>Y</td>
+    <td>K</td>
+    <td>A</td>
+    <td>Q</td>
+  </tr>
+  <tr>
+    <td>R</td>
+    <td>H</td>
+    <td>Z</td>
+    <td>Q</td>
+    <td>O</td>
+    <td>L</td>
+    <td>P</td>
+    <td>M</td>
+    <td>G</td>
+    <td>H</td>
+  </tr>
+  <tr>
+    <td>G</td>
+    <td>I</td>
+    <td>C</td>
+    <td>N</td>
+    <td>W</td>
+    <td>T</td>
+    <td>F</td>
+    <td>P</td>
+    <td>R</td>
+    <td>I</td>
+  </tr>
+  <tr>
+    <td>B</td>
+    <td>K</td>
+    <td>D</td>
+    <td>U</td>
+    <td>V</td>
+    <td>Z</td>
+    <td>X</td>
+    <td>J</td>
+    <td>B</td>
+    <td>G</td>
+  </tr>
+</table>
+
+<script>
+  const colors = ["", "green", "red", "gray"];
+
+  document.querySelectorAll("td").forEach(cell => {
+    let index = 0;
+
+    cell.addEventListener("click", () => {
+      cell.classList.remove(...colors.filter(c => c));
+      index = (index + 1) % colors.length;
+
+      if (colors[index]) {
+        cell.classList.add(colors[index]);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
